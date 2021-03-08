@@ -1,13 +1,24 @@
+import pprint
 import sys
-from classes.content import ContentFetcher
+from classes.content import ExtractXpathConfig, DataExtractor
 
-fetcher = ContentFetcher(url=sys.argv[1])
-fetcher.get_response()
-htree = fetcher.get_html_tree()
 
-catalog = htree.xpath("//header[contains(@class, 'MainLayout__header')]/"
-                      "div[contains(@class, 'js--MainHeader__inner_bottom')]"
-                      "/div[contains(@class, 'MainHeader__catalog-block')]/"
-                      "div[contains(@class, 'MainHeader__catalog')]/a/@href")
+# TODO: docker... (wrap into ubuntu image, install python, system libs etc.)
+# TODO: async run...
 
-print('catalog', catalog)
+
+config = ExtractXpathConfig(
+    index_url=sys.argv[1],
+    catalog_link_xpath="//header[contains(@class, 'MainLayout__header')]"
+                       "/div[contains(@class, 'js--MainHeader__inner_bottom')]"
+                       "/div[contains(@class, 'MainHeader__catalog-block')]"
+                       "/div[contains(@class, 'MainHeader__catalog')]/a/@href",
+    categories_list_xpath="//a[contains(@class, 'CatalogLayout__link_level-1')]/@href",
+    deep_categories_xpath="//a[contains(@class, 'CatalogCategoryCard__link')]/@href"
+)
+
+data_extractor = DataExtractor(config)
+data_extractor.get_category_tree()
+
+print("category tree:\n")
+pprint.pprint(data_extractor.category_tree)

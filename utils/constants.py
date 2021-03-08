@@ -6,3 +6,8 @@ DEFAULT_HEADERS = {
     "cache-control": "no-cache",
     'User-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36'
 }
+
+CACHE_TIME = 6 * 60 * 60  # sec.
+REQUEST_LATENCY = 0.5
+REQUEST_TIMEOUT = 5
+REQUEST_ATTEMPTS = 3
