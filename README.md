@@ -1,5 +1,5 @@
 ### System requirements   
-Linux Ubuntu (bionic) (or run via Docker in future)
+Linux Ubuntu (bionic)
 Python 3.8 +
 
 ### Usage   
